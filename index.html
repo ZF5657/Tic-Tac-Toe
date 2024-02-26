@@ -10,24 +10,31 @@
 <body>
     <div class="container">
         <div class="header">
+            <h1>Tic Tac Toe</h1>
             <form action="nameInput">
-                <label for="user1Name">User 1 Name</label>
-                <input type="text" id="user1Name" name="user1Name" required>
-                <label for="user2Name">User 2 Name</label>
-                <input type="text" id="user2Name" name="user2Name" required>
+                <label for="player1Name">Player 1 Name</label>
+                <input type="text" id="player1Name" name="player1Name" required>
+                <label for="player2Name">Player 2 Name</label>
+                <input type="text" id="player2Name" name="player2Name" required>
                 <input type="submit" id="submit" name="submit" value="Submit">
             </form>
         </div>
         <div class="board">
-            <div class="a1"></div>
-            <div class="a2"></div>
-            <div class="a3"></div>
-            <div class="b1"></div>
-            <div class="b2"></div>
-            <div class="b3"></div>
-            <div class="c1"></div>
-            <div class="c2"></div>
-            <div class="c3"></div>
+            <div class="columnA">
+                <div class="square" id="a1"></div>
+                <div class="square" id="a2"></div>
+                <div class="square" id="a3"></div>
+            </div>
+            <div class="columnB">
+                <div class="square" id="b1"></div>
+                <div class="square" id="b2"></div>
+                <div class="square" id="b3"></div>
+            </div>
+            <div class="columnC">
+                <div class="square" id="c1"></div>
+                <div class="square" id="c2"></div>
+                <div class="square" id="c3"></div>
+            </div>
         </div>
     </div>
     <script src="script.js" defer></script>
