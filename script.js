@@ -42,23 +42,24 @@ const playGame = () => {
     const c3 = document.querySelector('#c3');
 
     const takeTurns = () => {
-        for(let i = 0; i < 9; i++) {
-            if(playerTurn == 1) {
-                currentPlayer = player1.letter;
-                playerTurn = 0;
-            } else if(playerTurn == 0) {
-                currentPlayer == player2.letter;
-                playerTurn = 1;
-            } else if(gameGrid[0] && gameGrid[1] && gameGrid[2] && gameGrid[3] && gameGrid[4] && gameGrid[5] && gameGrid[6] && gameGrid[7] && gameGrid[8]) {
-                console.log('Game Over!')
-                return null;
-            }
+        if(playerTurn === 1) {
+            currentPlayer = player1.letter;
+            playerTurn = 0;
+        } else if(playerTurn === 0) {
+            currentPlayer = player2.letter;
+            playerTurn = 1;
+        // } else if(gameGrid[0] && gameGrid[1] && gameGrid[2] && gameGrid[3] && gameGrid[4] && gameGrid[5] && gameGrid[6] && gameGrid[7] && gameGrid[8]) {
+        //     console.log('Game Over!')
+        //     return null;
+        } else {
+            return null;
         }
-     }
+    }
 
     const addLetter = () => {
         squares.forEach((square) => {
             square.addEventListener('click', () => {
+                console.log(playerTurn)
                 takeTurns();
                 if(square == a1) {
                     gameGrid[0] = currentPlayer;
@@ -88,7 +89,7 @@ const playGame = () => {
                     gameGrid[8] = currentPlayer;
                     console.log(gameGrid[8]);
                 } else {
-                    return
+                    return null;
                 }
                 // console.log(currentPlayer)
                 console.log(gameGrid)
