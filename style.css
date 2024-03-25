@@ -20,13 +20,17 @@ form {
 }
 
 .board {
-    display: flex;
+    display: none;
 }
 
 .square {
+    display: flex;
     height: 175px;
     width: 175px;
     border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    font-size: 4em;
 }
 
 #a1,#b1,#c1 {
@@ -47,4 +51,8 @@ form {
 }
 #player2Name {
     margin-bottom: 10%;
+}
+
+label {
+    font-size: 1.2em;
 }

@@ -2,15 +2,25 @@ const addPlayer = (name, letter) => {
     return {name, letter};
 }
 
-const player1 = addPlayer("Bob", 'X');
-const player2 = addPlayer("Jack", 'O');
-
-let currentPlayer = '';
-let playerTurn = 1;
-
-console.log({name: player1.name, playerLetter: player1.letter});
-console.log({name: player2.name, playerLetter: player2.letter});
-
+document.querySelector('#submit').addEventListener('click', (e) => {
+    e.preventDefault();
+    player1 = addPlayer(document.querySelector('#player1Name').value, 'X');
+    if(player1.name == '') {
+        player1.name = 'Player 1'
+    }
+    player2 = addPlayer(document.querySelector('#player2Name').value, 'O');
+    if(player2.name == '') {
+        player2.name = 'Player 2'
+    }
+    console.log(player1.name)
+    console.log(player1.letter)
+    console.log(player2.name)
+    console.log(player2.letter)
+    document.querySelector('.board').style = ('display: flex;')
+    document.querySelector('.nameInput').style = ('display: none;')
+    document.querySelector('.display').textContent = `${player1.name}'s turn`;
+    document.querySelector('.display').style = ('font-size: 2em;');
+})
 
 const playGame = () => {
     const gameGrid = [
@@ -41,16 +51,22 @@ const playGame = () => {
     const c2 = document.querySelector('#c2');
     const c3 = document.querySelector('#c3');
 
+    let currentPlayer = '';
+    let playerTurn = 1;
+
+    
+
     const takeTurns = () => {
         if(playerTurn === 1) {
             currentPlayer = player1.letter;
+            document.querySelector('.display').textContent = `${player2.name}'s turn`;
             playerTurn = 0;
         } else if(playerTurn === 0) {
             currentPlayer = player2.letter;
+            document.querySelector('.display').textContent = `${player1.name}'s turn`;
             playerTurn = 1;
-        // } else if(gameGrid[0] && gameGrid[1] && gameGrid[2] && gameGrid[3] && gameGrid[4] && gameGrid[5] && gameGrid[6] && gameGrid[7] && gameGrid[8]) {
-        //     console.log('Game Over!')
-        //     return null;
+        } else if(gameGrid[0] && gameGrid[1] && gameGrid[2] && gameGrid[3] && gameGrid[4] && gameGrid[5] && gameGrid[6] && gameGrid[7] && gameGrid[8] !== '') {
+            console.log('Game Over!')
         } else {
             return null;
         }
@@ -63,30 +79,39 @@ const playGame = () => {
                 takeTurns();
                 if(square == a1) {
                     gameGrid[0] = currentPlayer;
+                    a1.textContent = currentPlayer;
                     console.log(gameGrid[0]);
                 } else if(square == b1) {
                     gameGrid[1] = currentPlayer;
+                    b1.textContent = currentPlayer;
                     console.log(gameGrid[1]);
                 } else if(square == c1) {
                     gameGrid[2] = currentPlayer;
+                    c1.textContent = currentPlayer;
                     console.log(gameGrid[2]);
                 } else if(square == a2) {
                     gameGrid[3] = currentPlayer;
+                    a2.textContent = currentPlayer;
                     console.log(gameGrid[3]);
                 } else if(square == b2) {
                     gameGrid[4] = currentPlayer;
+                    b2.textContent = currentPlayer;
                     console.log(gameGrid[4]);
                 } else if(square == c2) {
                     gameGrid[5] = currentPlayer;
+                    c2.textContent = currentPlayer;
                     console.log(gameGrid[5]);
                 } else if(square == a3) {
                     gameGrid[6] = currentPlayer;
+                    a3.textContent = currentPlayer;
                     console.log(gameGrid[6]);
                 } else if(square == b3) {
                     gameGrid[7] = currentPlayer;
+                    b3.textContent = currentPlayer;
                     console.log(gameGrid[7]);
                 } else if(square == c3) {
                     gameGrid[8] = currentPlayer;
+                    c3.textContent = currentPlayer;
                     console.log(gameGrid[8]);
                 } else {
                     return null;
