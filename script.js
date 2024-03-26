@@ -2,6 +2,8 @@ const addPlayer = (name, letter) => {
     return {name, letter};
 }
 
+//Form creates players and if names are left blank, will make names "Player 1" and "Player 2" by default.
+//Will start the game upon clicking submit and hide the form in place of a game display
 document.querySelector('#submit').addEventListener('click', (e) => {
     e.preventDefault();
     player1 = addPlayer(document.querySelector('#player1Name').value, 'X');
@@ -20,6 +22,7 @@ document.querySelector('#submit').addEventListener('click', (e) => {
     document.querySelector('.nameInput').style = ('display: none;')
     document.querySelector('.display').textContent = `${player1.name}'s turn`;
     document.querySelector('.display').style = ('font-size: 2em;');
+    playGame();
 })
 
 const playGame = () => {
@@ -29,33 +32,23 @@ const playGame = () => {
         '', '', ''
     ];
 
-    // const hor1 =  gameGrid[0, 1, 2];
-    // const hor2 =  gameGrid[3, 4, 5];
-    // const hor3 =  gameGrid[6, 7, 8];
-    // const vert1 =  gameGrid[0, 3, 6];
-    // const vert2 =  gameGrid[1, 4, 7];
-    // const vert3 =  gameGrid[2, 5, 8];
-    // const diag1 =  gameGrid[0, 4, 8];
-    // const diag2 =  gameGrid[2, 4, 6];
 
-    // const winningCombo = {hor1, hor2, hor3, vert1, vert2, vert3, diag1, diag2};
-
-    let squares = document.querySelectorAll('.square');
-    const a1 = document.querySelector('#a1');
-    const a2 = document.querySelector('#a2');
-    const a3 = document.querySelector('#a3');
-    const b1 = document.querySelector('#b1');
-    const b2 = document.querySelector('#b2');
-    const b3 = document.querySelector('#b3');
-    const c1 = document.querySelector('#c1');
-    const c2 = document.querySelector('#c2');
-    const c3 = document.querySelector('#c3');
+    // let squares = document.querySelectorAll('.square');
+    // const a1 = document.querySelector('#a1');
+    // const a2 = document.querySelector('#a2');
+    // const a3 = document.querySelector('#a3');
+    // const b1 = document.querySelector('#b1');
+    // const b2 = document.querySelector('#b2');
+    // const b3 = document.querySelector('#b3');
+    // const c1 = document.querySelector('#c1');
+    // const c2 = document.querySelector('#c2');
+    // const c3 = document.querySelector('#c3');
 
     let currentPlayer = '';
     let playerTurn = 1;
+    let gameOver = false;
 
-    
-
+    //Function to take turns switching from player 1 to player 2, starting with player 1. Display div displays whose turn it is once the current player has just taken a turn.
     const takeTurns = () => {
         if(playerTurn === 1) {
             currentPlayer = player1.letter;
@@ -65,63 +58,112 @@ const playGame = () => {
             currentPlayer = player2.letter;
             document.querySelector('.display').textContent = `${player1.name}'s turn`;
             playerTurn = 1;
-        } else if(gameGrid[0] && gameGrid[1] && gameGrid[2] && gameGrid[3] && gameGrid[4] && gameGrid[5] && gameGrid[6] && gameGrid[7] && gameGrid[8] !== '') {
-            console.log('Game Over!')
         } else {
-            return null;
+            return;
         }
     }
 
     const addLetter = () => {
+        let squares = document.querySelectorAll('.square');
         squares.forEach((square) => {
-            square.addEventListener('click', () => {
-                console.log(playerTurn)
-                takeTurns();
-                if(square == a1) {
-                    gameGrid[0] = currentPlayer;
-                    a1.textContent = currentPlayer;
-                    console.log(gameGrid[0]);
-                } else if(square == b1) {
-                    gameGrid[1] = currentPlayer;
-                    b1.textContent = currentPlayer;
-                    console.log(gameGrid[1]);
-                } else if(square == c1) {
-                    gameGrid[2] = currentPlayer;
-                    c1.textContent = currentPlayer;
-                    console.log(gameGrid[2]);
-                } else if(square == a2) {
-                    gameGrid[3] = currentPlayer;
-                    a2.textContent = currentPlayer;
-                    console.log(gameGrid[3]);
-                } else if(square == b2) {
-                    gameGrid[4] = currentPlayer;
-                    b2.textContent = currentPlayer;
-                    console.log(gameGrid[4]);
-                } else if(square == c2) {
-                    gameGrid[5] = currentPlayer;
-                    c2.textContent = currentPlayer;
-                    console.log(gameGrid[5]);
-                } else if(square == a3) {
-                    gameGrid[6] = currentPlayer;
-                    a3.textContent = currentPlayer;
-                    console.log(gameGrid[6]);
-                } else if(square == b3) {
-                    gameGrid[7] = currentPlayer;
-                    b3.textContent = currentPlayer;
-                    console.log(gameGrid[7]);
-                } else if(square == c3) {
-                    gameGrid[8] = currentPlayer;
-                    c3.textContent = currentPlayer;
-                    console.log(gameGrid[8]);
-                } else {
-                    return null;
+
+            const a1 = document.querySelector('#a1');
+            const a2 = document.querySelector('#a2');
+            const a3 = document.querySelector('#a3');
+            const b1 = document.querySelector('#b1');
+            const b2 = document.querySelector('#b2');
+            const b3 = document.querySelector('#b3');
+            const c1 = document.querySelector('#c1');
+            const c2 = document.querySelector('#c2');
+            const c3 = document.querySelector('#c3');
+
+            const determineWinner = () => {
+                if(gameGrid[0] != '' && gameGrid[0] == gameGrid[1] && gameGrid[2]) {
+                    console.log('game over')
+                    gameOver = true;
+                    return null
+                } else if(gameGrid[3] != '' && gameGrid[3] == gameGrid[4] && gameGrid[5]) {
+                    console.log('game over')
+                    gameOver = true;
+                    return null
+                } else if(gameGrid[6] != '' && gameGrid[6] == gameGrid[7] && gameGrid[8]) {
+                    console.log('game over')
+                    gameOver = true;
+                    return null
+                } else if(gameGrid[0] != '' && gameGrid[0] == gameGrid[3] && gameGrid[6]) {
+                    console.log('game over')
+                    gameOver = true;
+                    return null
+                } else if(gameGrid[1] != '' && gameGrid[1] == gameGrid[4] && gameGrid[7]) {
+                    console.log('game over')
+                    gameOver = true;
+                    return null
+                } else if(gameGrid[2] != '' && gameGrid[2] == gameGrid[5] && gameGrid[8]) {
+                    console.log('game over')
+                    gameOver = true;
+                    return null
+                } else if(gameGrid[0] != '' && gameGrid[0] == gameGrid[4] && gameGrid[8]) {
+                    console.log('game over')
+                    gameOver = true;
+                    return null
+                } else if(gameGrid[6] != '' && gameGrid[6] == gameGrid[4] && gameGrid[2]) {
+                    console.log('game over')
+                    gameOver = true;
+                    return null
                 }
-                // console.log(currentPlayer)
-                console.log(gameGrid)
+            }
+
+            square.addEventListener('click', () => {
+                determineWinner()
+                //Locks in div display and array if div has been clicked; prevents takeTurns and turn display from changing if clicking on filled square
+                if(square.textContent != '') {
+                    return
+                } else if(square.textContent == '' && gameOver == false) {
+                    takeTurns()
+                    if(square == a1) {
+                        gameGrid[0] = currentPlayer;
+                        a1.textContent = currentPlayer;
+
+                    } else if(square == b1) {
+                        gameGrid[1] = currentPlayer;
+                        b1.textContent = currentPlayer;
+
+                    } else if(square == c1) {
+                        gameGrid[2] = currentPlayer;
+                        c1.textContent = currentPlayer;
+
+                    } else if(square == a2) {
+                        gameGrid[3] = currentPlayer;
+                        a2.textContent = currentPlayer;
+
+                    } else if(square == b2) {
+                        gameGrid[4] = currentPlayer;
+                        b2.textContent = currentPlayer;
+
+                    } else if(square == c2) {
+                        gameGrid[5] = currentPlayer;
+                        c2.textContent = currentPlayer;
+
+                    } else if(square == a3) {
+                        gameGrid[6] = currentPlayer;
+                        a3.textContent = currentPlayer;
+
+                    } else if(square == b3) {
+                        gameGrid[7] = currentPlayer;
+                        b3.textContent = currentPlayer;
+
+                    } else if(square == c3) {
+                        gameGrid[8] = currentPlayer;
+                        c3.textContent = currentPlayer;
+
+                    }
+                    console.log(gameGrid);
+                } else {
+                    return null
+                }
             })
+
         })
     }
     addLetter()
 }
-
-playGame();
