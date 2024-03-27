@@ -22,6 +22,7 @@ document.querySelector('#submit').addEventListener('click', (e) => {
     document.querySelector('.nameInput').style = ('display: none;')
     document.querySelector('.display').textContent = `${player1.name}'s turn`;
     document.querySelector('.display').style = ('font-size: 2em;');
+    playGame()
 })
 
 const gameGrid = ['', '', '', '', '', '', '', '', ''];
@@ -45,49 +46,83 @@ const takeTurns = () => {
     }
 }
 
+const player1WinDisplay = () => {
+    console.log(`${player1.name} wins!`)
+    console.log('game over')
+    gameOver = true;
+    document.querySelector('.display').textContent = `${player1.name} wins!`;
+    return null
+}
+
+const player2WinDisplay = () => {
+    console.log(`${player2.name} wins!`)
+    console.log('game over')
+    gameOver = true;
+    document.querySelector('.display').textContent = `${player2.name} wins!`;
+    return null
+}
+
 const determineWinner = () => {
     if(gameGrid[0] != '' && gameGrid[0] == gameGrid[1] && gameGrid[2] == gameGrid[1]) {
-        console.log('game over')
-        gameOver = true;
-        return null
+        if(gameGrid[0] == 'X' && gameGrid[1] == 'X' && gameGrid[2] == 'X') {
+            player1WinDisplay()
+        } else {
+            player2WinDisplay()
+        }
     } else if(gameGrid[3] != '' && gameGrid[3] == gameGrid[4] && gameGrid[5] == gameGrid[4]) {
-        console.log('game over')
-        gameOver = true;
-        return null
+        if(gameGrid[3] == 'X' && gameGrid[4] == 'X' && gameGrid[5] == 'X') {
+            player1WinDisplay()
+        } else {
+            player2WinDisplay()
+        }
     } else if(gameGrid[6] != '' && gameGrid[6] == gameGrid[7] && gameGrid[8] == gameGrid[7]) {
-        console.log('game over')
-        gameOver = true;
-        return null
+        if(gameGrid[6] == 'X' && gameGrid[7] == 'X' && gameGrid[8] == 'X') {
+            player1WinDisplay()
+        } else {
+            player2WinDisplay()
+        }
     } else if(gameGrid[0] != '' && gameGrid[0] == gameGrid[3] && gameGrid[6] == gameGrid[3]) {
-        console.log('game over')
-        gameOver = true;
-        return null
+        if(gameGrid[0] == 'X' && gameGrid[3] == 'X' && gameGrid[6] == 'X') {
+            player1WinDisplay()
+        } else {
+            player2WinDisplay()
+        }
     } else if(gameGrid[1] != '' && gameGrid[1] == gameGrid[4] && gameGrid[7] == gameGrid[4]) {
-        console.log('game over')
-        gameOver = true;
-        return null
+        if(gameGrid[1] == 'X' && gameGrid[4] == 'X' && gameGrid[7] == 'X') {
+            player1WinDisplay()
+        } else {
+            player2WinDisplay()
+        }
     } else if(gameGrid[2] != '' && gameGrid[2] == gameGrid[5] && gameGrid[8] == gameGrid[5]) {
-        console.log('game over')
-        gameOver = true;
-        return null
+        if(gameGrid[2] == 'X' && gameGrid[5] == 'X' && gameGrid[8] == 'X') {
+            player1WinDisplay()
+        } else {
+            player2WinDisplay()
+        }
     } else if(gameGrid[0] != '' && gameGrid[0] == gameGrid[4] && gameGrid[8] == gameGrid[4]) {
-        console.log('game over')
-        gameOver = true;
-        return null
+        if(gameGrid[0] == 'X' && gameGrid[4] == 'X' && gameGrid[8] == 'X') {
+            player1WinDisplay()
+        } else {
+            player2WinDisplay()
+        }
     } else if(gameGrid[6] != '' && gameGrid[6] == gameGrid[4] && gameGrid[2] == gameGrid[4]) {
-        console.log('game over')
-        gameOver = true;
-        return null
+        if(gameGrid[6] == 'X' && gameGrid[4] == 'X' && gameGrid[2] == 'X') {
+            player1WinDisplay()
+        } else {
+            player2WinDisplay()
+        }
     } else if(gameGrid[0] && gameGrid[1] && gameGrid[2] && gameGrid[3] && gameGrid[4] && gameGrid[5] && gameGrid[6] && gameGrid[7] && gameGrid[8] != ''){
         console.log('Draw')
+        document.querySelector('.display').textContent = `It's a draw`;
         return null
     }
 }
 
+const playGame = () => {
     let squares = document.querySelectorAll('.square');
 
     squares.forEach((square) => {
-        determineWinner();
+
         const a1 = document.querySelector('#a1');
         const a2 = document.querySelector('#a2');
         const a3 = document.querySelector('#a3');
@@ -143,10 +178,7 @@ const determineWinner = () => {
 
                 }
                 console.log(gameGrid);
-            } else {
-                return null
             }
         })
-
     })
-
+}
