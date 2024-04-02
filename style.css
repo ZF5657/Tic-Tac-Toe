@@ -21,6 +21,13 @@ form {
 
 .board {
     display: none;
+    margin-bottom: 5%;
+}
+
+.footer {
+    display: none;
+    width: 300px;
+    justify-content: space-between;
 }
 
 .square {
