@@ -1,4 +1,4 @@
-html {
+body {
     background-color: #1a1a1a;
 }
 
@@ -7,6 +7,7 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 .header {
     display: flex;
@@ -38,43 +39,47 @@ form {
 }
 
 .header {
-    margin-bottom: 100px;
+    margin-bottom: 40px;
     color: ivory;
 }
 
 .board {
-    display: none;
-    margin-bottom: 3%;
+    display: grid;
+    grid-template-columns: 175px 175px 175px;
+    grid-template-rows: 175px 175px 175px;
+    position: relative;
     color: ivory;
+}
+
+.right-border {
+    border-right: .03em solid ivory;
+}
+
+.bottom-border {
+    border-bottom: .03em solid ivory;
 }
 
 .footer {
     display: none;
-    width: 300px;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
 }
 
 .square {
     display: flex;
     height: 175px;
     width: 175px;
-    border: 1px solid ivory;
     justify-content: center;
     align-items: center;
     font-size: 5em;
 }
 
-#a1,#b1,#c1 {
-    border-top: none;
-}
-#a3,#b3,#c3 {
-    border-bottom: none;
-}
-#a1,#a2,#a3 {
-    border-left: none;
-}
-#c1,#c2,#c3 {
-    border-right: none;
+.buttons {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
 }
 
 #player1Name {
@@ -103,4 +108,70 @@ button:hover {
 
 .reset {
     background-color: rgb(255, 100, 44);
+}
+
+.liveDisplay {
+    font-weight: 800;
+}
+
+p {
+    color: ivory;
+}
+
+.line {
+    display: none;
+    position: absolute;
+    background-color: red;
+}
+
+.line-hor-1 {
+    width: 100%;
+    height: 4px;
+    top: 12.3%;
+}
+
+.line-hor-2 {
+    width: 100%;
+    height: 4px;
+    top: 38%;
+}
+
+.line-hor-3 {
+    width: 100%;
+    height: 4px;
+    top: 64%;
+}
+
+.line-vert-1 {
+    width: 4px;
+    height: 77.5%;
+    left: 16.5%;
+}
+
+.line-vert-2 {
+    width: 4px;
+    height: 76%;
+    left: 50%;
+}
+
+.line-vert-3 {
+    width: 4px;
+    height: 77.5%;
+    left: 83%;
+}
+
+.line-diag-1 {
+    width: 90%;
+    height: 4px;
+    top: 38%;
+    left: 5%;
+    transform: skewY(45deg);
+}
+
+.line-diag-2 {
+    width: 90%;
+    height: 4px;
+    top: 38%;
+    left: 5%;
+    transform: skewY(-45deg);
 }

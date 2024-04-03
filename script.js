@@ -10,18 +10,18 @@ const addPlayer = (name, letter) => {
 document.querySelector('#submit').addEventListener('click', (e) => {
     e.preventDefault();
     player1 = addPlayer(document.querySelector('#player1Name').value, 'X');
-    if(player1.name == '') {
+    if (player1.name === '') {
         player1.name = 'Player 1'
     }
     player2 = addPlayer(document.querySelector('#player2Name').value, 'O');
-    if(player2.name == '') {
+    if (player2.name === '') {
         player2.name = 'Player 2'
     }
     console.log(player1.name)
     console.log(player1.letter)
     console.log(player2.name)
     console.log(player2.letter)
-    document.querySelector('.board').style = ('display: flex;')
+    document.querySelector('.board').style = ('display: grid;')
     document.querySelector('.footer').style = ('display: flex;')
     document.querySelector('.nameInput').style = ('display: none;')
     document.querySelector('.liveDisplay').textContent = `${player1.name}'s turn`;
@@ -37,11 +37,11 @@ let gameOver = false;
   
 //Function to take turns switching from player 1 to player 2, starting with player 1. Display div displays whose turn it is once the current player has just taken a turn.
 const takeTurns = () => {
-    if(playerTurn === 1) {
+    if (playerTurn === 1) {
         currentPlayer = player1.letter;
         document.querySelector('.liveDisplay').textContent = `${player2.name}'s turn`;
         playerTurn = 0;
-    } else if(playerTurn === 0) {
+    } else if (playerTurn === 0) {
         currentPlayer = player2.letter;
         document.querySelector('.liveDisplay').textContent = `${player1.name}'s turn`;
         playerTurn = 1;
@@ -66,9 +66,9 @@ const determineWinner = () => {
     //Checks if a winning combo contains 3 matching letters then displays who won based on letter
     for (const winningCombo of winningCombos) {
         const {combo} = winningCombo;
-        const tileValue1 = gameGrid[combo[0] - 1];
-        const tileValue2 = gameGrid[combo[1] - 1];
-        const tileValue3 = gameGrid[combo[2] - 1];
+        const squareValue1 = gameGrid[combo[0] - 1];
+        const squareValue2 = gameGrid[combo[1] - 1];
+        const squareValue3 = gameGrid[combo[2] - 1];
 
         const player1WinDisplay = () => {
             console.log(`${player1.name} wins!`);
@@ -94,18 +94,20 @@ const determineWinner = () => {
             return null;
         };
 
-        //Checks if the board is full
+        //Variable for a full board
         const checkFullBoard = gameGrid.every((square) => square != '');
 
-        if (tileValue1 != '' && tileValue1 == tileValue2 && tileValue1 == tileValue3) {
-            if (tileValue1 && tileValue2 && tileValue3 == 'X') {
+        //Checks if a combo of tiles equals the same value and what to display based on the letter value
+        if (squareValue1 !== '' && squareValue1 === squareValue2 && squareValue1 === squareValue3) {
+            if (squareValue1 && squareValue2 && squareValue3 === 'X') {
                 player1WinDisplay();
                 
             } else {
                 player2WinDisplay();
             }
+            //Checks if there is a full board when there is a winning combo
             if (checkFullBoard) {
-                if (tileValue1 && tileValue2 && tileValue3 == 'X') {
+                if (squareValue1 && squareValue2 && squareValue3 === 'X') {
                     player1WinDisplay();
                     return null;  
                 } else {
@@ -113,6 +115,7 @@ const determineWinner = () => {
                     return null;
                 }
             }
+        //Checks if there is just a full board and no winning combos
         } else if (checkFullBoard) {
             drawDisplay();
         }

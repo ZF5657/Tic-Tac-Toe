@@ -16,34 +16,38 @@
                     
                 </div>
                 <form action="nameInput" class="nameInput">
-                    <label for="player1Name">Player 1 Name</label>
+                    <label for="player1Name">Player 1 Name (X)</label>
                     <input type="text" id="player1Name" name="player1Name" required>
-                    <label for="player2Name">Player 2 Name</label>
+                    <label for="player2Name">Player 2 Name (O)</label>
                     <input type="text" id="player2Name" name="player2Name" required>
                     <input type="submit" id="submit" name="submit" value="Submit / Start">
                 </form>
             </div>
         </div>
         <div class="board">
-            <div class="columnA">
-                <div class="square" id="a1"></div>
-                <div class="square" id="a2"></div>
-                <div class="square" id="a3"></div>
-            </div>
-            <div class="columnB">
-                <div class="square" id="b1"></div>
-                <div class="square" id="b2"></div>
-                <div class="square" id="b3"></div>
-            </div>
-            <div class="columnC">
-                <div class="square" id="c1"></div>
-                <div class="square" id="c2"></div>
-                <div class="square" id="c3"></div>
-            </div>
-        </div>
+            <div class="square right-border bottom-border" id="1"></div>
+            <div class="square right-border bottom-border" id="2"></div>
+            <div class="square bottom-border" id="3"></div>
+            <div class="square right-border bottom-border" id="4"></div>
+            <div class="square right-border bottom-border" id="5"></div>
+            <div class="square bottom-border" id="6"></div>
+            <div class="square right-border" id="7"></div>
+            <div class="square right-border" id="8"></div>
+            <div class="square" id="9"></div>
+            <div id="line" class="line line-hor-1"></div>
+            <div id="line" class="line line-hor-2"></div>
+            <div id="line" class="line line-hor-3"></div>
+            <div id="line" class="line line-vert-1"></div>
+            <div id="line" class="line line-vert-2"></div>
+            <div id="line" class="line line-vert-3"></div>
+            <div id="line" class="line line-diag-1"></div>
+            <div id="line" class="line line-diag-2"></div>
         <div class="footer">
-            <button class="restart">Restart Game</button>
-            <button class="reset">Reset Game</button>
+            <div class="buttons">
+                <button class="restart">Restart Game</button>
+                <button class="reset" name="reset">Reset Game</button>
+            </div>
+            <p>Reset Game will restart from player name selection.</p>
         </div>
     </div>
     <script src="script.js" defer></script>
