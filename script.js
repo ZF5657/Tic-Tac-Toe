@@ -24,8 +24,8 @@ document.querySelector('#submit').addEventListener('click', (e) => {
     document.querySelector('.board').style = ('display: flex;')
     document.querySelector('.footer').style = ('display: flex;')
     document.querySelector('.nameInput').style = ('display: none;')
-    document.querySelector('.display').textContent = `${player1.name}'s turn`;
-    document.querySelector('.display').style = ('font-size: 2em;');
+    document.querySelector('.liveDisplay').textContent = `${player1.name}'s turn`;
+    document.querySelector('.liveDisplay').style = ('font-size: 2em;');
     playGame()
 });
   
@@ -39,11 +39,11 @@ let gameOver = false;
 const takeTurns = () => {
     if(playerTurn === 1) {
         currentPlayer = player1.letter;
-        document.querySelector('.display').textContent = `${player2.name}'s turn`;
+        document.querySelector('.liveDisplay').textContent = `${player2.name}'s turn`;
         playerTurn = 0;
     } else if(playerTurn === 0) {
         currentPlayer = player2.letter;
-        document.querySelector('.display').textContent = `${player1.name}'s turn`;
+        document.querySelector('.liveDisplay').textContent = `${player1.name}'s turn`;
         playerTurn = 1;
     } else {
         return;
@@ -67,7 +67,7 @@ const determineWinner = () => {
         console.log(`${player1.name} wins!`);
         console.log('Game Over');
         gameOver = true;
-        document.querySelector('.display').textContent = `${player1.name} wins!`;
+        document.querySelector('.liveDisplay').textContent = `${player1.name} wins!`;
         return null;
     };
       
@@ -75,7 +75,7 @@ const determineWinner = () => {
         console.log(`${player2.name} wins!`);
         console.log('Game Over');
         gameOver = true;
-        document.querySelector('.display').textContent = `${player2.name} wins!`;
+        document.querySelector('.liveDisplay').textContent = `${player2.name} wins!`;
         return null;
     };
     
@@ -83,7 +83,7 @@ const determineWinner = () => {
         console.log(`It's a draw.`);
         console.log('Game Over');
         gameOver = true;
-        document.querySelector('.display').textContent = `It's a Draw.`;
+        document.querySelector('.liveDisplay').textContent = `It's a Draw.`;
         return null;
     };
 
@@ -125,6 +125,27 @@ const playGame = () => {
                 square.textContent = currentPlayer;
                 determineWinner();
                 console.log(gameGrid);
+                //Function for restarting the game with the same players
+                document.querySelector('.restart').addEventListener('click', () => {
+                    gameGrid[index] = '';
+                    gameOver = false;
+                    square.textContent = '';
+                    document.querySelector('.liveDisplay').textContent = `${player1.name}'s turn`;
+                    playerTurn = 1;
+                })
+                //Function for resetting the game and player names
+                document.querySelector('.reset').addEventListener('click', () => {
+                    gameGrid[index] = '';
+                    gameOver = false;
+                    square.textContent = '';
+                    playerTurn = 1;
+                    document.querySelector('.board').style = ('display: none;')
+                    document.querySelector('.footer').style = ('display: none;')
+                    document.querySelector('.nameInput').style = ('display: flex;')
+                    document.querySelector('.liveDisplay').textContent = '';
+                    document.querySelector('#player1Name').value = '';
+                    document.querySelector('#player2Name').value = '';
+                })
             }
         })
     })
