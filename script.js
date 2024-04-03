@@ -63,30 +63,6 @@ const determineWinner = () => {
         {combo: [3, 5, 7]}
     ];
 
-    const player1WinDisplay = () => {
-        console.log(`${player1.name} wins!`);
-        console.log('Game Over');
-        gameOver = true;
-        document.querySelector('.liveDisplay').textContent = `${player1.name} wins!`;
-        return null;
-    };
-      
-    const player2WinDisplay = () => {
-        console.log(`${player2.name} wins!`);
-        console.log('Game Over');
-        gameOver = true;
-        document.querySelector('.liveDisplay').textContent = `${player2.name} wins!`;
-        return null;
-    };
-    
-    const drawDisplay = () => {
-        console.log(`It's a draw.`);
-        console.log('Game Over');
-        gameOver = true;
-        document.querySelector('.liveDisplay').textContent = `It's a Draw.`;
-        return null;
-    };
-
     //Checks if a winning combo contains 3 matching letters then displays who won based on letter
     for (const winningCombo of winningCombos) {
         const {combo} = winningCombo;
@@ -94,18 +70,50 @@ const determineWinner = () => {
         const tileValue2 = gameGrid[combo[1] - 1];
         const tileValue3 = gameGrid[combo[2] - 1];
 
+        const player1WinDisplay = () => {
+            console.log(`${player1.name} wins!`);
+            console.log('Game Over');
+            gameOver = true;
+            document.querySelector('.liveDisplay').textContent = `${player1.name} wins!`;
+            return null;
+        };
+          
+        const player2WinDisplay = () => {
+            console.log(`${player2.name} wins!`);
+            console.log('Game Over');
+            gameOver = true;
+            document.querySelector('.liveDisplay').textContent = `${player2.name} wins!`;
+            return null;
+        };
+        
+        const drawDisplay = () => {
+            console.log(`It's a draw.`);
+            console.log('Game Over');
+            gameOver = true;
+            document.querySelector('.liveDisplay').textContent = `It's a Draw.`;
+            return null;
+        };
+
         //Checks if the board is full
         const checkFullBoard = gameGrid.every((square) => square != '');
-        
-        if (tileValue1 != '' && tileValue1 === tileValue2 && tileValue1 === tileValue3) {
+
+        if (tileValue1 != '' && tileValue1 == tileValue2 && tileValue1 == tileValue3) {
             if (tileValue1 && tileValue2 && tileValue3 == 'X') {
                 player1WinDisplay();
                 
             } else {
                 player2WinDisplay();
             }
-        //Checks if board is full and no one has won
-        } else if (checkFullBoard && gameOver == false) {
+            if (checkFullBoard) {
+                if (tileValue1 && tileValue2 && tileValue3 == 'X') {
+                    player1WinDisplay();
+                    return null;  
+                } else {
+                    player2WinDisplay();
+                    return null;
+                }
+            }
+        } else if (checkFullBoard) {
             drawDisplay();
         }
     }
@@ -113,7 +121,7 @@ const determineWinner = () => {
   
 const playGame = () => {
     let squares = document.querySelectorAll('.square');
-  
+    
     squares.forEach ((square, index) => {
         square.addEventListener('click', () => {
         //Locks in div display and array if div has been clicked; prevents takeTurns and turn display from changing if clicking on filled square
