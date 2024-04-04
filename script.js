@@ -53,19 +53,19 @@ const takeTurns = () => {
 //Checks for a winning combo and which player won
 const determineWinner = () => {
     const winningCombos = [
-        {combo: [1, 2, 3]},
-        {combo: [4, 5, 6]},
-        {combo: [7, 8, 9]},
-        {combo: [1, 4, 7]},
-        {combo: [2, 5, 8]},
-        {combo: [3, 6, 9]},
-        {combo: [1, 5, 9]},
-        {combo: [3, 5, 7]}
+        {combo: [1, 2, 3], lineClass: "line-row-1"},
+        {combo: [4, 5, 6], lineClass: "line-row-2"},
+        {combo: [7, 8, 9], lineClass: "line-row-3"},
+        {combo: [1, 4, 7], lineClass: "line-col-1"},
+        {combo: [2, 5, 8], lineClass: "line-col-2"},
+        {combo: [3, 6, 9], lineClass: "line-col-3"},
+        {combo: [1, 5, 9], lineClass: "line-diag-1"},
+        {combo: [3, 5, 7], lineClass: "line-diag-2"}
     ];
 
     //Checks if a winning combo contains 3 matching letters then displays who won based on letter
     for (const winningCombo of winningCombos) {
-        const {combo} = winningCombo;
+        const {combo, lineClass} = winningCombo;
         const squareValue1 = gameGrid[combo[0] - 1];
         const squareValue2 = gameGrid[combo[1] - 1];
         const squareValue3 = gameGrid[combo[2] - 1];
@@ -75,6 +75,7 @@ const determineWinner = () => {
             console.log('Game Over');
             gameOver = true;
             document.querySelector('.liveDisplay').textContent = `${player1.name} wins!`;
+            document.getElementById('line').style = ('display: flex');
             return null;
         };
           
@@ -94,30 +95,47 @@ const determineWinner = () => {
             return null;
         };
 
+        const removeLineClass = () => {
+            document.querySelector('.reset').addEventListener('click', () => { 
+                document.getElementById('line').classList.remove(lineClass);
+            });
+            document.querySelector('.restart').addEventListener('click', () => { 
+                document.getElementById('line').classList.remove(lineClass);
+            });
+        }
+
         //Variable for a full board
         const checkFullBoard = gameGrid.every((square) => square != '');
 
         //Checks if a combo of tiles equals the same value and what to display based on the letter value
         if (squareValue1 !== '' && squareValue1 === squareValue2 && squareValue1 === squareValue3) {
             if (squareValue1 && squareValue2 && squareValue3 === 'X') {
+                document.getElementById('line').classList.add(lineClass);
                 player1WinDisplay();
-                
+                removeLineClass();
             } else {
+                document.getElementById('line').classList.add(lineClass);
                 player2WinDisplay();
+                removeLineClass();
             }
             //Checks if there is a full board when there is a winning combo
             if (checkFullBoard) {
                 if (squareValue1 && squareValue2 && squareValue3 === 'X') {
+                    document.getElementById('line').classList.add(lineClass);
                     player1WinDisplay();
+                    removeLineClass();
                     return null;  
                 } else {
+                    document.getElementById('line').classList.add(lineClass);
                     player2WinDisplay();
+                    removeLineClass();
                     return null;
                 }
             }
         //Checks if there is just a full board and no winning combos
         } else if (checkFullBoard) {
             drawDisplay();
+            removeLineClass();
         }
     }
 };
@@ -136,6 +154,7 @@ const playGame = () => {
                 square.textContent = currentPlayer;
                 determineWinner();
                 console.log(gameGrid);
+
                 //Function for restarting the game with the same players
                 document.querySelector('.restart').addEventListener('click', () => {
                     gameGrid[index] = '';
@@ -143,7 +162,8 @@ const playGame = () => {
                     square.textContent = '';
                     document.querySelector('.liveDisplay').textContent = `${player1.name}'s turn`;
                     playerTurn = 1;
-                })
+                });
+
                 //Function for resetting the game and player names
                 document.querySelector('.reset').addEventListener('click', () => {
                     gameGrid[index] = '';
@@ -156,7 +176,7 @@ const playGame = () => {
                     document.querySelector('.liveDisplay').textContent = '';
                     document.querySelector('#player1Name').value = '';
                     document.querySelector('#player2Name').value = '';
-                })
+                });
             }
         })
     })
